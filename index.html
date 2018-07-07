@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<div class="news-control">
+    <div class="container">
+        <div class="row">
+            <div class="input-field col s6">
+                <select id="country">
+                    <option value="" disabled selected>Choose your country</option>
+                    <option value="ua">Ukraine</option>
+                    <option value="us">USA</option>
+                    <option value="pl">Poland</option>
+                </select>
+                <label>Select</label>
+            </div>
+            <div class="input-field col s6">
+                <select id="category">
+                    <option value="" disabled selected>Choose your category</option>
+                    <option value="general">All news</option>
+                    <option value="business">Business</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="health">Health</option>
+                    <option value="science">Science</option>
+                    <option value="sports">Sports</option>
+                    <option value="technology">Technology</option>
+                </select>
+                <label>Select</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="newsSource">
+                    <option value="" disabled selected>Choose your news resource</option>
+                    <option value="abc-news">ABC News</option>
+                    <option value="polygon">Polygon</option>
+                    <option value="bbc-news">BBC News</option>
+                    <option value="bloomberg">BLOOMBERG</option>
+                    <option value="cnn">CNN</option>
+                    <option value="the-new-york-times">The New York Times</option>
+                    <option value="google-news">Google News</option>
+                    <option value="lenta">Lenta</option>
+                    <option value="the-washington-post">The Washington Post</option>
+                    <option value="reuters">Reuters</option>
+                </select>
+                <label>Select</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s8">
+                <input id="search" type="text">
+                <label for="search">Search news</label>
+            </div>
+            <div class="input-field col s4">
+                <a class="waves-effect waves-light btn" id="searchBtn">Search</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="news-container">
+    <div class="container">
+        <div class="row center-align"></div>
+    </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+
+<script src="js/http.js"></script>
+<script src="js/ui.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+</script>
+
+<script src="js/app.js"></script>
+</body>
+</html>
