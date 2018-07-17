@@ -20,60 +20,116 @@ selectSources.addEventListener("change", onChangeSources);
 searchBtn.addEventListener("click", onSearch);
 
 // Event handlers
-function onChangeCountryAndCategory(e) {
-  // Показываю прелодер
-  ui.showLoader();
-  // Делаем запрос на получение новостей по выбранной стране
-  http.get(`https://newsapi.org/v2/top-headlines?country=${select.value}&category=${selectCategory.value}&apiKey=${apiKey}`, function (err, res) {
-      const response = JSON.parse(res);
-      if (response.totalResults) {
-          // Удаляем разметку из контейнера
-          ui.clearContainer();
-          // перебираем новости из поля articles в объекте response
-          response.articles.forEach(news => ui.addNews(news));
-      } else {
-          ui.showInfo(`Новости по стране ${select.value} ${select.value !== '' ? ' и по данной категории' : ''}  не найдены`);
-      }
-  });
-}
 
-function onChangeSources(e) {
+//по старому
+// function onChangeCountryAndCategory(e) {
+//   // Показываю прелодер
+//   ui.showLoader();
+//   // Делаем запрос на получение новостей по выбранной стране
+//   http.get(`https://newsapi.org/v2/top-headlines?country=${select.value}&category=${selectCategory.value}&apiKey=${apiKey}`, function (err, res) {
+//       const response = JSON.parse(res);
+//       if (response.totalResults) {
+//           // Удаляем разметку из контейнера
+//           ui.clearContainer();
+//           // перебираем новости из поля articles в объекте response
+//           response.articles.forEach(news => ui.addNews(news));
+//       } else {
+//           ui.showInfo(`Новости по стране ${select.value} ${select.value !== '' ? ' и по данной категории' : ''}  не найдены`);
+//       }
+//   });
+// }
+
+//через промисы
+function onChangeCountryAndCategory(e) {
     // Показываю прелодер
     ui.showLoader();
     // Делаем запрос на получение новостей по выбранной стране
-    http.get(`https://newsapi.org/v2/top-headlines?sources=${selectSources.value}&apiKey=${apiKey}`, function (err, res) {
-        if (!err) {
-            // Пробразовываем из JSON в обычный объект
-            const response = JSON.parse(res);
-            // Удаляем разметку из контейнера
+    http.get(`https://newsapi.org/v2/top-headlines?country=${select.value}&category=${selectCategory.value}&apiKey=${apiKey}`)
+        .then(data => {
             ui.clearContainer();
             // перебираем новости из поля articles в объекте response
-            response.articles.forEach(news => ui.addNews(news));
-        } else {
-            // Выводим ошибку
-            ui.showError(err);
-        }
-    });
+            data.articles.forEach(news => ui.addNews(news));
+        })
+        .catch(err => {
+            ui.showInfo(`Новости по стране ${select.value} ${select.value !== '' ? ' и по данной категории' : ''}  не найдены`);
+        });
 }
 
 
+//по старому
+// function onChangeSources(e) {
+//     // Показываю прелодер
+//     ui.showLoader();
+//     // Делаем запрос на получение новостей по выбранным источникам
+//     http.get(`https://newsapi.org/v2/top-headlines?sources=${selectSources.value}&apiKey=${apiKey}`, function (err, res) {
+//         if (!err) {
+//             // Пробразовываем из JSON в обычный объект
+//             const response = JSON.parse(res);
+//             // Удаляем разметку из контейнера
+//             ui.clearContainer();
+//             // перебираем новости из поля articles в объекте response
+//             response.articles.forEach(news => ui.addNews(news));
+//         } else {
+//             // Выводим ошибку
+//             ui.showError(err);
+//         }
+//     });
+// }
+
+//через промисы
+function onChangeSources(e) {
+    // Показываю прелодер
+    ui.showLoader();
+    // Делаем запрос на получение новостей по выбранным источникам
+    http.get(`https://newsapi.org/v2/top-headlines?sources=${selectSources.value}&apiKey=${apiKey}`)
+        .then(data => {
+            // Удаляем разметку из контейнера
+            ui.clearContainer();
+            // перебираем новости из поля articles в объекте response
+            data.articles.forEach(news => ui.addNews(news));
+        })
+        .catch(err => {
+            // Выводим ошибку
+            ui.showError(err);
+        });
+}
+
+
+//по старому
+// function onSearch(e) {
+//   // Делаем запрос на получение новостей по тому что введено в инпут
+//   http.get(`https://newsapi.org/v2/everything?q=${searchInput.value}&apiKey=${apiKey}`, function (err, res) {
+//     if (err) return ui.showError(err);
+//
+//     const response = JSON.parse(res);
+//       console.log(res);
+//
+//     if (response.totalResults) {
+//       // Удаляем разметку из контейнера
+//       ui.clearContainer();
+//       // перебираем новости из поля articles в объекте response
+//       response.articles.forEach(news => ui.addNews(news));
+//     } else {
+//       ui.showInfo("По вашему запросу новостей не найдено!");
+//     }
+//   });
+// }
+
+
+//через промисы
 function onSearch(e) {
-  // Делаем запрос на получение новостей по тому что введено в инпут
-  http.get(`https://newsapi.org/v2/everything?q=${searchInput.value}&apiKey=${apiKey}`, function (err, res) {
-    if (err) return ui.showError(err);
+    // Делаем запрос на получение новостей по тому что введено в инпут
 
-    const response = JSON.parse(res);
-      console.log(res);
-
-    if (response.totalResults) {
-      // Удаляем разметку из контейнера
-      ui.clearContainer();
-      // перебираем новости из поля articles в объекте response
-      response.articles.forEach(news => ui.addNews(news));
-    } else {
-      ui.showInfo("По вашему запросу новостей не найдено!");
-    }
-  });
+    http.get(`https://newsapi.org/v2/everything?q=${searchInput.value}&apiKey=${apiKey}`)
+        .then(data => {
+            ui.clearContainer();
+            // перебираем новости из поля articles в объекте response
+            data.articles.forEach(news => ui.addNews(news));
+        })
+        .catch(err => {
+            ui.showError(err);
+            ui.showInfo("По вашему запросу новостей не найдено!");
+        });
 }
 
 // Отдельный запрос на получение ресурсов
